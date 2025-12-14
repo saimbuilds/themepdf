@@ -357,45 +357,50 @@ document.addEventListener('drop', (e) => {
 // Pixel Cursor Follower
 // ===========================
 
-// Create cursor follower element
-const cursorFollower = document.createElement('div');
-cursorFollower.className = 'pixel-cursor-follower';
-document.body.appendChild(cursorFollower);
+// Only initialize on desktop (not mobile/tablet)
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 1024;
 
-let mouseX = 0;
-let mouseY = 0;
-let followerX = 0;
-let followerY = 0;
+if (!isMobile) {
+    // Create cursor follower element
+    const cursorFollower = document.createElement('div');
+    cursorFollower.className = 'pixel-cursor-follower';
+    document.body.appendChild(cursorFollower);
 
-// Track mouse position
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
 
-// Smooth follow animation
-function animateCursor() {
-    // Smooth easing
-    const speed = 0.15;
-    followerX += (mouseX - followerX) * speed;
-    followerY += (mouseY - followerY) * speed;
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
 
-    cursorFollower.style.left = followerX - 16 + 'px';
-    cursorFollower.style.top = followerY - 16 + 'px';
+    // Smooth follow animation
+    function animateCursor() {
+        // Smooth easing
+        const speed = 0.15;
+        followerX += (mouseX - followerX) * speed;
+        followerY += (mouseY - followerY) * speed;
 
-    requestAnimationFrame(animateCursor);
+        cursorFollower.style.left = followerX - 16 + 'px';
+        cursorFollower.style.top = followerY - 16 + 'px';
+
+        requestAnimationFrame(animateCursor);
+    }
+
+    animateCursor();
+
+    // Scale cursor on click
+    document.addEventListener('mousedown', () => {
+        cursorFollower.style.transform = 'scale(0.8)';
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursorFollower.style.transform = 'scale(1)';
+    });
 }
-
-animateCursor();
-
-// Scale cursor on click
-document.addEventListener('mousedown', () => {
-    cursorFollower.style.transform = 'scale(0.8)';
-});
-
-document.addEventListener('mouseup', () => {
-    cursorFollower.style.transform = 'scale(1)';
-});
 
 // ===========================
 // Like Button
@@ -406,7 +411,7 @@ function initializeLikeButton() {
     const likeCountElement = document.getElementById('likeCount');
 
     // Get like count and user liked status
-    let likeCount = parseInt(localStorage.getItem('likeCount')) || 42; // Start from 42
+    let likeCount = parseInt(localStorage.getItem('likeCount')) || 23; // Start from 23
     let userLiked = localStorage.getItem('userLiked') === 'true';
 
     // Update display
@@ -468,8 +473,8 @@ function updateVisitorCount() {
     let count = localStorage.getItem('visitorCount');
 
     if (!count) {
-        // First time - start from 20 (just launched)
-        count = 20;
+        // First time - start from 67 (higher than likes)
+        count = 67;
     } else {
         // Increment count for each visit
         count = parseInt(count) + 1;

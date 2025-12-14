@@ -113,6 +113,18 @@ body::before {
     }
 }
 
+/* Reduce animations on mobile for performance */
+@media (max-width: 768px) {
+    body::before {
+        animation: none;
+    }
+
+    .gradient-orb {
+        animation: none;
+        opacity: 0.2;
+    }
+}
+
 /* Pixel grid overlay */
 body::after {
     content: '';
@@ -134,7 +146,7 @@ body {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="0" y="0" width="4" height="4" fill="%236b21a8"/><rect x="4" y="0" width="4" height="4" fill="%238338ec"/><rect x="0" y="4" width="4" height="4" fill="%238338ec"/><rect x="4" y="4" width="4" height="4" fill="%2300f5ff"/></svg>'), auto;
 }
 
-/* Pixel mouse follower */
+/* Pixel mouse follower - Desktop only */
 .pixel-cursor-follower {
     position: fixed;
     width: 32px;
@@ -148,6 +160,17 @@ body {
     box-shadow: 0 0 20px rgba(107, 33, 168, 0.5), 0 0 40px rgba(0, 245, 255, 0.3);
     image-rendering: pixelated;
     mix-blend-mode: screen;
+}
+
+/* Hide cursor follower on mobile/tablet */
+@media (max-width: 1024px) {
+    .pixel-cursor-follower {
+        display: none !important;
+    }
+
+    body {
+        cursor: default;
+    }
 }
 
 .pixel-cursor-follower::before {
