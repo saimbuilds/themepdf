@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Convert your PDFs to dark mode instantly. Modern, fast, and easy-to-use PDF dark theme converter.">
+    <meta name="keywords" content="PDF, dark mode, converter, dark theme, PDF tools">
+    <title>PDF Dark Mode Converter - Transform Your PDFs</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="24" height="24" rx="4" fill="url(#gradient1)" />
+                    <path d="M12 16L14.5 18.5L20 13" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <defs>
+                        <linearGradient id="gradient1" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#a855f7" />
+                            <stop offset="1" stop-color="#3b82f6" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>PDF Dark Mode</h1>
+            </div>
+            <p class="tagline">Transform your PDFs to dark theme instantly</p>
+            <p class="creator">Created by <span class="creator-name">Saim</span></p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section id="uploadSection" class="upload-section active">
+                <div class="glass-card upload-card">
+                    <div class="upload-icon">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M32 8V40M32 8L20 20M32 8L44 20" stroke="url(#gradient2)" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M12 32V52C12 54.2091 13.7909 56 16 56H48C50.2091 56 52 54.2091 52 52V32"
+                                stroke="url(#gradient2)" stroke-width="3" stroke-linecap="round" />
+                            <defs>
+                                <linearGradient id="gradient2" x1="12" y1="8" x2="52" y2="56"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#8B5CF6" />
+                                    <stop offset="1" stop-color="#3B82F6" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <h2>Upload Your PDF</h2>
+                    <p class="upload-description">Drag and drop your PDF here, or click to browse</p>
+                    <p class="upload-limit">Maximum 200 pages</p>
+
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="fileInput" accept=".pdf" hidden>
+                        <div class="upload-prompt">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 6V30M24 6L15 15M24 6L33 15" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M9 24V39C9 40.6569 10.3431 42 12 42H36C37.6569 42 39 40.6569 39 39V24"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            <span>Drop PDF here or click to upload</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="uploadBtn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 3V13M10 3L6 7M10 3L14 7" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M3 10V16C3 16.5523 3.44772 17 4 17H16C16.5523 17 17 16.5523 17 16V10"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        Choose File
+                    </button>
+                </div>
+            </section>
+
+            <!-- Processing Section -->
+            <section id="processingSection" class="processing-section">
+                <div class="glass-card processing-card">
+                    <div class="processing-animation">
+                        <div class="spinner"></div>
+                    </div>
+
+                    <h2>Converting to Dark Mode</h2>
+                    <p class="processing-description">Please wait while we transform your PDF...</p>
+
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p class="progress-text" id="progressText">0%</p>
+                    </div>
+
+                    <p class="processing-info" id="processingInfo">Initializing...</p>
+                </div>
+            </section>
+
+            <!-- Download Section -->
+            <section id="downloadSection" class="download-section">
+                <div class="glass-card download-card">
+                    <div class="success-icon">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="32" cy="32" r="28" stroke="url(#gradient3)" stroke-width="3" />
+                            <path d="M20 32L28 40L44 24" stroke="url(#gradient3)" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <defs>
+                                <linearGradient id="gradient3" x1="4" y1="4" x2="60" y2="60"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#10B981" />
+                                    <stop offset="1" stop-color="#3B82F6" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <h2>Conversion Complete!</h2>
+                    <p class="download-description">Your dark mode PDF is ready to download</p>
+
+                    <button class="btn btn-success" id="downloadBtn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 3V13M10 13L6 9M10 13L14 9" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M3 13V16C3 16.5523 3.44772 17 4 17H16C16.5523 17 17 16.5523 17 16V13"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        Download Dark Mode PDF
+                    </button>
+
+                    <button class="btn btn-secondary" id="convertAnotherBtn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 10H16M4 10L8 6M4 10L8 14" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Convert Another PDF
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with ❤️ for better reading experience</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 6V10M10 14H10.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span id="toastMessage">Notification</span>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
