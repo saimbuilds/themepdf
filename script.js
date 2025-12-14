@@ -473,8 +473,8 @@ function updateVisitorCount() {
     let count = localStorage.getItem('visitorCount');
 
     if (!count) {
-        // First time - start from 67 (higher than likes)
-        count = 67;
+        // First time - start from 40
+        count = 40;
     } else {
         // Increment count for each visit
         count = parseInt(count) + 1;
